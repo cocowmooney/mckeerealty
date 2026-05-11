@@ -1,33 +1,33 @@
 </main>
     <!-- Footer -->
-    <footer class="bg-navy text-white py-12">
-        <div class="container mx-auto px-4">
+    <footer class="bg-navy text-white border-t border-gray-700/50">
+        <div class="container mx-auto px-4 py-10">
             <div class="grid md:grid-cols-3 gap-8">
                 <div>
-                    <div class="flex items-center space-x-2 mb-4">
-                        <div class="w-10 h-10 bg-gold rounded-lg flex items-center justify-center">
-                            <span class="text-navy font-bold text-lg">M</span>
+                    <div class="flex items-center space-x-3 mb-3">
+                        <div class="w-9 h-9 bg-gold flex items-center justify-center">
+                            <span class="text-navy font-bold text-base">M</span>
                         </div>
                         <div>
-                            <span class="font-bold text-lg">McKee Realty</span>
-                            <span class="block text-xs text-gold">Flowood, MS</span>
+                            <span class="font-semibold text-base">McKee Realty</span>
+                            <span class="block text-[10px] text-gold uppercase tracking-wider">Flowood, MS</span>
                         </div>
                     </div>
-                    <p class="text-gray-300 text-sm leading-relaxed">
-                        Serving Central Mississippi with trusted real estate expertise since 2007. Your home is our priority.
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Serving Central Mississippi with trusted real estate expertise. Your home is our priority.
                     </p>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gold mb-4">Quick Links</h3>
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-gold mb-4">Quick Links</h3>
                     <ul class="space-y-2 text-sm">
-                        <li><a href="/listings.php" class="text-gray-300 hover:text-gold transition">Browse Listings</a></li>
-                        <li><a href="/associates.php" class="text-gray-300 hover:text-gold transition">Our Agents</a></li>
-                        <li><a href="/contact.php" class="text-gray-300 hover:text-gold transition">Contact Us</a></li>
+                        <li><a href="/listings.php" class="text-gray-400 hover:text-white transition">Browse Listings</a></li>
+                        <li><a href="/associates.php" class="text-gray-400 hover:text-white transition">Our Agents</a></li>
+                        <li><a href="/contact.php" class="text-gray-400 hover:text-white transition">Contact Us</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="font-semibold text-gold mb-4">Contact Info</h3>
-                    <ul class="space-y-2 text-sm text-gray-300">
+                    <h3 class="text-sm font-semibold uppercase tracking-wider text-gold mb-4">Contact</h3>
+                    <ul class="space-y-2 text-sm text-gray-400">
                         <li class="flex items-start space-x-2">
                             <svg class="w-4 h-4 mt-0.5 text-gold shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                             <span>300 Belle Meade Pt. Ste. B<br>Flowood, MS 39232</span>
@@ -39,7 +39,7 @@
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-700 mt-8 pt-6 text-center text-sm text-gray-400">
+            <div class="border-t border-gray-700/50 mt-8 pt-6 text-center text-xs text-gray-500">
                 <p>&copy; <?= date('Y') ?> McKee Realty Inc. All rights reserved.</p>
             </div>
         </div>

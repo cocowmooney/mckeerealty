@@ -1,5 +1,4 @@
 <?php
-// Database connection - include this in every page that needs DB
 require_once __DIR__ . '/db.php';
 ?><!DOCTYPE html>
 <html lang="en">
@@ -21,7 +20,7 @@ require_once __DIR__ . '/db.php';
                     colors: {
                         navy: '#1e3a5f',
                         gold: '#c9a84c',
-                        'gold-light': '#e0c56a',
+                        'gold-light': '#dbb95c',
                         'navy-light': '#2a4f7a',
                     }
                 }
@@ -29,40 +28,37 @@ require_once __DIR__ . '/db.php';
         }
     </script>
 </head>
-<body class="font-sans bg-gray-50 text-gray-800">
+<body class="font-sans bg-gray-50 text-gray-800 antialiased">
     <!-- Header -->
-    <header class="bg-navy text-white shadow-lg sticky top-0 z-50">
+    <header class="bg-navy text-white shadow sticky top-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16 md:h-20">
-                <a href="/" class="flex items-center space-x-2">
-                    <div class="w-10 h-10 bg-gold rounded-lg flex items-center justify-center">
-                        <span class="text-navy font-bold text-lg">M</span>
+                <a href="/" class="flex items-center space-x-3">
+                    <div class="w-9 h-9 bg-gold flex items-center justify-center">
+                        <span class="text-navy font-bold text-base">M</span>
                     </div>
                     <div class="hidden sm:block">
-                        <span class="font-bold text-lg tracking-tight">McKee Realty</span>
-                        <span class="block text-xs text-gold -mt-1">Flowood, MS</span>
+                        <span class="font-semibold text-base tracking-tight">McKee Realty</span>
+                        <span class="block text-[10px] text-gold uppercase tracking-wider -mt-0.5">Flowood, MS</span>
                     </div>
                 </a>
-                <!-- Mobile menu button -->
-                <button id="menu-toggle" class="md:hidden p-2 hover:bg-navy-light rounded-lg transition">
+                <button id="menu-toggle" class="md:hidden p-2 hover:bg-navy-light transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
-                <!-- Desktop nav -->
                 <nav class="hidden md:flex items-center space-x-1">
-                    <a href="/" class="px-4 py-2 rounded-lg hover:bg-navy-light transition font-medium <?= basename($_SERVER['SCRIPT_NAME']) == 'index.php' ? 'text-gold' : '' ?>">Home</a>
-                    <a href="/listings.php" class="px-4 py-2 rounded-lg hover:bg-navy-light transition font-medium <?= basename($_SERVER['SCRIPT_NAME']) == 'listings.php' ? 'text-gold' : '' ?>">Listings</a>
-                    <a href="/associates.php" class="px-4 py-2 rounded-lg hover:bg-navy-light transition font-medium <?= basename($_SERVER['SCRIPT_NAME']) == 'associates.php' ? 'text-gold' : '' ?>">Agents</a>
-                    <a href="/contact.php" class="px-4 py-2 rounded-lg hover:bg-navy-light transition font-medium <?= basename($_SERVER['SCRIPT_NAME']) == 'contact.php' ? 'text-gold' : '' ?>">Contact</a>
+                    <a href="/" class="px-3 py-2 text-sm font-medium hover:bg-navy-light transition <?= basename($_SERVER['SCRIPT_NAME']) == 'index.php' ? 'text-gold' : 'text-gray-200' ?>">Home</a>
+                    <a href="/listings.php" class="px-3 py-2 text-sm font-medium hover:bg-navy-light transition <?= basename($_SERVER['SCRIPT_NAME']) == 'listings.php' ? 'text-gold' : 'text-gray-200' ?>">Listings</a>
+                    <a href="/associates.php" class="px-3 py-2 text-sm font-medium hover:bg-navy-light transition <?= basename($_SERVER['SCRIPT_NAME']) == 'associates.php' ? 'text-gold' : 'text-gray-200' ?>">Agents</a>
+                    <a href="/contact.php" class="px-3 py-2 text-sm font-medium hover:bg-navy-light transition <?= basename($_SERVER['SCRIPT_NAME']) == 'contact.php' ? 'text-gold' : 'text-gray-200' ?>">Contact</a>
                 </nav>
             </div>
-            <!-- Mobile nav -->
             <nav id="mobile-menu" class="hidden md:hidden pb-4 space-y-1">
-                <a href="/" class="block px-4 py-2 rounded-lg hover:bg-navy-light transition">Home</a>
-                <a href="/listings.php" class="block px-4 py-2 rounded-lg hover:bg-navy-light transition">Listings</a>
-                <a href="/associates.php" class="block px-4 py-2 rounded-lg hover:bg-navy-light transition">Agents</a>
-                <a href="/contact.php" class="block px-4 py-2 rounded-lg hover:bg-navy-light transition">Contact</a>
+                <a href="/" class="block px-3 py-2 text-sm text-gray-200 hover:bg-navy-light transition">Home</a>
+                <a href="/listings.php" class="block px-3 py-2 text-sm text-gray-200 hover:bg-navy-light transition">Listings</a>
+                <a href="/associates.php" class="block px-3 py-2 text-sm text-gray-200 hover:bg-navy-light transition">Agents</a>
+                <a href="/contact.php" class="block px-3 py-2 text-sm text-gray-200 hover:bg-navy-light transition">Contact</a>
             </nav>
         </div>
     </header>
