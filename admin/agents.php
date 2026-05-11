@@ -55,7 +55,7 @@ if (isset($_GET['edit'])) {
                 <a href="agents.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-gold/10 text-gold font-medium">Agents</a>
                 <a href="submissions.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition">Submissions</a>
                 <a href="approve.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition">Approvals</a>
-                <a href="password.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-200">Password</a>
+                <a href="password.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-100">Password</a>
                 <a href="logout.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-red-700/20 text-red-300 mt-4 text-sm">Logout</a>
             </nav>
         </div>
@@ -96,7 +96,7 @@ if (isset($_GET['edit'])) {
                                         <td class="p-4 font-medium text-navy"><?= htmlspecialchars($a['name']) ?></td>
                                         <td class="p-4 text-gray-500 hidden md:table-cell"><?= htmlspecialchars($a['role']) ?></td>
                                         <td class="p-4 text-gray-500 hidden md:table-cell"><?= htmlspecialchars($a['email']) ?></td>
-                                        <td class="p-4"><div class="flex gap-2"><a href="?edit=<?= $a['id'] ?>" class="text-navy hover:text-gold transition text-xs font-medium">Edit</a><span class="text-gray-300">|</span><a href="?delete_agent=<?= $a['id'] ?>" onclick="return confirm('Delete this agent?')" class="text-red-500 hover:text-red-700 transition text-xs">Delete</a></div></td>
+                                        <td class="p-4"><div class="flex gap-2"><a href="?edit=<?= $a['id'] ?>" class="text-navy hover:text-gold transition text-xs font-medium">Edit</a><span class="text-gray-100">|</span><a href="?delete_agent=<?= $a['id'] ?>" onclick="return confirm('Delete this agent?')" class="text-red-500 hover:text-red-700 transition text-xs">Delete</a></div></td>
                                     </tr>
                                     <?php endforeach; ?>
                                 </tbody>

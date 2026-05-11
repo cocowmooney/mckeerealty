@@ -36,7 +36,7 @@ $listings = $db->query("SELECT l.*, a.name as agent_name FROM listings l LEFT JO
                 <a href="agents.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg> Agents</a>
                 <a href="submissions.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg> Submissions</a>
                 <a href="approve.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg> Approvals</a>
-                <a href="password.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-200">Password</a>
+                <a href="password.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-100">Password</a>
                 <a href="logout.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-red-700/20 text-red-300 mt-4 text-sm">Logout</a>
             </nav>
         </div>
@@ -76,13 +76,13 @@ $listings = $db->query("SELECT l.*, a.name as agent_name FROM listings l LEFT JO
                                 <td class="p-4">
                                     <div class="flex items-center gap-2">
                                         <a href="listing-edit.php?id=<?= $l['id'] ?>" class="text-navy hover:text-gold transition text-xs font-medium">Edit</a>
-                                        <span class="text-gray-300">|</span>
+                                        <span class="text-gray-100">|</span>
                                         <a href="?set_status=active&id=<?= $l['id'] ?>" class="text-green-600 hover:text-green-800 transition text-xs">Active</a>
-                                        <span class="text-gray-300">|</span>
+                                        <span class="text-gray-100">|</span>
                                         <a href="?set_status=pending&id=<?= $l['id'] ?>" class="text-yellow-600 hover:text-yellow-800 transition text-xs">Pending</a>
-                                        <span class="text-gray-300">|</span>
+                                        <span class="text-gray-100">|</span>
                                         <a href="?set_status=closed&id=<?= $l['id'] ?>" class="text-gray-600 hover:text-gray-800 transition text-xs">Closed</a>
-                                        <span class="text-gray-300">|</span>
+                                        <span class="text-gray-100">|</span>
                                         <a href="?delete=<?= $l['id'] ?>" onclick="return confirm('Delete this listing?')" class="text-red-500 hover:text-red-700 transition text-xs">Delete</a>
                                     </div>
                                 </td>
