@@ -19,6 +19,7 @@ $submissions = $db->query("SELECT c.*, l.title as listing_title FROM contacts c 
                 <a href="listings.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition">Listings</a>
                 <a href="agents.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition">Agents</a>
                 <a href="submissions.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-gold/10 text-gold font-medium">Submissions</a>
+                <a href="approve.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition">Approvals</a>
                 <a href="logout.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-red-700/20 text-red-300 mt-4">Logout</a>
             </nav>
         </div>

@@ -2,7 +2,6 @@
 // Database setup - SQLite auto-creation
 $db_path = __DIR__ . '/../data/site.db';
 
-// Ensure data directory exists
 $data_dir = dirname($db_path);
 if (!is_dir($data_dir)) {
     mkdir($data_dir, 0755, true);
@@ -13,7 +12,6 @@ try {
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     
-    // Create tables
     $db->exec("CREATE TABLE IF NOT EXISTS agents (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT NOT NULL,
@@ -67,18 +65,29 @@ try {
     $db->exec("CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT UNIQUE NOT NULL,
+        email TEXT UNIQUE,
+        password_hash TEXT NOT NULL,
+        approved INTEGER DEFAULT 1,
+        role TEXT DEFAULT 'admin',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+    )");
+    
+    $db->exec("CREATE TABLE IF NOT EXISTS pending_users (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        username TEXT UNIQUE NOT NULL,
+        email TEXT NOT NULL,
         password_hash TEXT NOT NULL,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )");
     
-    // Create default admin if not exists
-    $check = $db->prepare("SELECT COUNT(*) as c FROM users WHERE username = ?");
+    // Create default super admin if not exists
+    $check = $db->prepare("SELECT COUNT(*) as c FROM users WHERE username = ? AND role = 'super'");
     $check->execute(['admin']);
     $row = $check->fetch();
     if ($row['c'] == 0) {
         $hash = password_hash('admin', PASSWORD_DEFAULT);
-        $ins = $db->prepare("INSERT INTO users (username, password_hash) VALUES (?, ?)");
-        $ins->execute(['admin', $hash]);
+        $ins = $db->prepare("INSERT INTO users (username, email, password_hash, approved, role) VALUES (?, ?, ?, 1, 'super')");
+        $ins->execute(['admin', 'mckeerealty@att.net', $hash]);
     }
     
 } catch (PDOException $e) {

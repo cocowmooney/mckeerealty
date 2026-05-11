@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-700/50 mt-8 pt-6 text-center text-xs text-gray-500">
-                <p>&copy; <?= date('Y') ?> McKee Realty Inc. All rights reserved.</p>
+                <p>&copy; <a href="/admin/login.php" class="text-gray-500 hover:text-gray-400 transition no-underline"><?= date('Y') ?></a> McKee Realty Inc. All rights reserved.</p>
             </div>
         </div>
     </footer>

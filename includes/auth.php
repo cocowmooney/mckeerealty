@@ -1,7 +1,10 @@
 <?php
-// Admin authentication
 function is_logged_in(): bool {
     return isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true;
+}
+
+function is_super_admin(): bool {
+    return isset($_SESSION['admin_role']) && $_SESSION['admin_role'] === 'super';
 }
 
 function require_admin(): void {
@@ -12,7 +15,14 @@ function require_admin(): void {
     }
 }
 
-function login(string $username, string $password): bool {
+function require_super_admin(): void {
+    require_admin();
+    if (!is_super_admin()) {
+        die('Access denied. Only the primary admin can access this page.');
+    }
+}
+
+function login(string $username, string $password): string {
     require_once __DIR__ . '/db.php';
     global $db;
     
@@ -20,17 +30,53 @@ function login(string $username, string $password): bool {
     $stmt->execute([$username]);
     $user = $stmt->fetch();
     
-    if ($user && password_verify($password, $user['password_hash'])) {
+    if (!$user) {
+        return 'invalid';
+    }
+    
+    if (!$user['approved']) {
+        return 'unapproved';
+    }
+    
+    if (password_verify($password, $user['password_hash'])) {
         session_start();
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_username'] = $user['username'];
         $_SESSION['admin_user_id'] = $user['id'];
-        return true;
+        $_SESSION['admin_role'] = $user['role'];
+        return 'ok';
     }
-    return false;
+    
+    return 'invalid';
 }
 
 function logout(): void {
     session_start();
     session_destroy();
+}
+
+function request_account(string $username, string $email, string $password): bool {
+    require_once __DIR__ . '/db.php';
+    global $db;
+    
+    // Check if username already taken
+    $check = $db->prepare("SELECT COUNT(*) as c FROM users WHERE username = ?");
+    $check->execute([$username]);
+    if ($check->fetch()['c'] > 0) return false;
+    
+    // Check if already pending
+    $check2 = $db->prepare("SELECT COUNT(*) as c FROM pending_users WHERE username = ?");
+    $check2->execute([$username]);
+    if ($check2->fetch()['c'] > 0) return false;
+    
+    $hash = password_hash($password, PASSWORD_DEFAULT);
+    $ins = $db->prepare("INSERT INTO pending_users (username, email, password_hash) VALUES (?, ?, ?)");
+    $ins->execute([$username, $email, $hash]);
+    
+    // Notify super admin
+    $subject = "New admin account request: $username";
+    $body = "A new admin account has been requested:\n\nUsername: $username\nEmail: $email\n\nApprove or reject at the admin dashboard.";
+    mail('mckeerealty@att.net', $subject, $body, "From: noreply@mckeerealtyinc.com");
+    
+    return true;
 }
