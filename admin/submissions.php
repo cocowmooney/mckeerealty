@@ -12,15 +12,15 @@ $submissions = $db->query("SELECT c.*, l.title as listing_title FROM contacts c 
 </head>
 <body class="font-sans bg-gray-50">
     <div class="flex h-screen">
-        <div class="w-64 bg-navy text-white shrink-0 hidden md:block p-6">
-            <a href="/admin/dashboard.php" class="flex items-center gap-2 mb-6"><div class="w-8 h-8 bg-gold rounded-lg flex items-center justify-center"><span class="text-navy font-bold">M</span></div><span class="font-bold">McKee Admin</span></a>
+        <div class="w-64 bg-slate-800 text-white shrink-0 hidden md:block p-6">
+            <a href="/admin/dashboard.php" class="flex items-center gap-2 mb-6"><div class="w-8 h-8 bg-amber-400 rounded-lg flex items-center justify-center"><span class="text-navy font-bold">M</span></div><span class="font-bold">McKee Admin</span></a>
             <nav class="space-y-1">
-                <a href="dashboard.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition">Dashboard</a>
-                <a href="listings.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition">Listings</a>
-                <a href="agents.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition">Agents</a>
-                <a href="submissions.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-gold/10 text-gold font-medium">Submissions</a>
-                <a href="approve.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-navy-light transition">Approvals</a>
-                <a href="password.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-100">Password</a>
+                <a href="dashboard.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-700 transition">Dashboard</a>
+                <a href="listings.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-700 transition">Listings</a>
+                <a href="agents.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-700 transition">Agents</a>
+                <a href="submissions.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg bg-amber-400/10 text-amber-400 font-medium">Submissions</a>
+                <a href="approve.php" class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-slate-700 transition">Approvals</a>
+                <a href="password.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700 transition text-sm text-slate-200">Password</a>
                 <a href="logout.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-red-700/20 text-red-300 mt-4 text-sm">Logout</a>
             </nav>
         </div>

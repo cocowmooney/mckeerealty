@@ -37,15 +37,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body class="font-sans bg-gray-50">
     <div class="flex h-screen">
-        <div class="w-64 bg-navy text-white shrink-0 hidden md:block p-6">
+        <div class="w-64 bg-slate-800 text-white shrink-0 hidden md:block p-6">
             <a href="/admin/dashboard.php" class="flex items-center gap-2 mb-6"><img src="/assets/images/logo.png" alt="" class="h-10"></a>
             <nav class="space-y-1">
-                <a href="dashboard.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-100">Dashboard</a>
-                <a href="listings.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-100">Listings</a>
-                <a href="agents.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-100">Agents</a>
-                <a href="submissions.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-100">Submissions</a>
-                <a href="approve.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-100">Approvals</a>
-                <a href="password.php" class="flex items-center gap-3 px-4 py-2.5 bg-gold/10 text-gold font-medium text-sm">Password</a>
+                <a href="dashboard.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700 transition text-sm text-slate-200">Dashboard</a>
+                <a href="listings.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700 transition text-sm text-slate-200">Listings</a>
+                <a href="agents.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700 transition text-sm text-slate-200">Agents</a>
+                <a href="submissions.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700 transition text-sm text-slate-200">Submissions</a>
+                <a href="approve.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-slate-700 transition text-sm text-slate-200">Approvals</a>
+                <a href="password.php" class="flex items-center gap-3 px-4 py-2.5 bg-amber-400/10 text-amber-400 font-medium text-sm">Password</a>
                 <a href="logout.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-red-700/20 text-red-300 mt-4 text-sm">Logout</a>
             </nav>
         </div>
