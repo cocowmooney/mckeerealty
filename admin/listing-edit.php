@@ -3,6 +3,14 @@ require_once __DIR__ . '/../includes/auth.php';
 require_admin();
 
 $agents = $db->query("SELECT * FROM agents ORDER BY name ASC")->fetchAll();
+
+// Auto-select this user's assigned agent if they have one
+\$user_agent_id = \$_SESSION['admin_agent_id'] ?? null;
+if (!\$user_agent_id) {
+    \$ua = \$db->prepare("SELECT agent_id FROM users WHERE id = ?");
+    \$ua->execute([\$_SESSION['admin_user_id']]);
+    \$user_agent_id = \$ua->fetchColumn();
+}
 $edit_id = $_GET['id'] ?? 0;
 $editing = null;
 

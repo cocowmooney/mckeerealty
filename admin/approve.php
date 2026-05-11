@@ -2,28 +2,25 @@
 require_once __DIR__ . '/../includes/auth.php';
 require_super_admin();
 
-// Approve user
+$all_agents = $db->query("SELECT id, name FROM agents ORDER BY name ASC")->fetchAll();
+
+// Approve user with optional agent assignment
 if (isset($_GET['approve'])) {
     $stmt = $db->prepare("SELECT * FROM pending_users WHERE id = ?");
     $stmt->execute([$_GET['approve']]);
     $pu = $stmt->fetch();
     
     if ($pu) {
-        // Move to users table
-        $ins = $db->prepare("INSERT INTO users (username, email, password_hash, approved, role) VALUES (?, ?, ?, 1, 'admin')");
-        $ins->execute([$pu['username'], $pu['email'], $pu['password_hash']]);
-        
-        // Remove from pending
+        $agent_id = !empty($_GET['agent_id']) ? (int)$_GET['agent_id'] : null;
+        $ins = $db->prepare("INSERT INTO users (username, email, password_hash, approved, role, agent_id) VALUES (?, ?, ?, 1, 'admin', ?)");
+        $ins->execute([$pu['username'], $pu['email'], $pu['password_hash'], $agent_id]);
         $del = $db->prepare("DELETE FROM pending_users WHERE id = ?");
         $del->execute([$pu['id']]);
-        
-        $msg = "Approved {$pu['username']}.";
     }
     header('Location: approve.php');
     exit;
 }
 
-// Reject user
 if (isset($_GET['reject'])) {
     $del = $db->prepare("DELETE FROM pending_users WHERE id = ?");
     $del->execute([$_GET['reject']]);
@@ -32,7 +29,7 @@ if (isset($_GET['reject'])) {
 }
 
 $pending = $db->query("SELECT * FROM pending_users ORDER BY created_at DESC")->fetchAll();
-$approved_users = $db->query("SELECT * FROM users ORDER BY role ASC, username ASC")->fetchAll();
+$approved_users = $db->query("SELECT u.*, a.name as agent_name FROM users u LEFT JOIN agents a ON u.agent_id = a.id ORDER BY u.role ASC, u.username ASC")->fetchAll();
 ?><!DOCTYPE html>
 <html lang="en">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Approve Users | McKee Admin</title>
@@ -62,16 +59,27 @@ $approved_users = $db->query("SELECT * FROM users ORDER BY role ASC, username AS
                 <div class="bg-white border border-gray-200 overflow-x-auto mb-8">
                     <?php if (count($pending) > 0): ?>
                     <table class="w-full text-sm">
-                        <thead class="bg-gray-50 text-gray-600"><tr><th class="text-left p-4 font-medium">Username</th><th class="text-left p-4 font-medium hidden md:table-cell">Email</th><th class="text-left p-4 font-medium hidden md:table-cell">Requested</th><th class="text-left p-4 font-medium">Actions</th></tr></thead>
+                        <thead class="bg-gray-50 text-gray-600"><tr><th class="text-left p-4 font-medium">Username</th><th class="text-left p-4 font-medium hidden md:table-cell">Email</th><th class="text-left p-4 font-medium hidden md:table-cell">Date</th><th class="text-left p-4 font-medium">Assign Agent</th><th class="text-left p-4 font-medium">Actions</th></tr></thead>
                         <tbody class="divide-y divide-gray-100">
                             <?php foreach ($pending as $p): ?>
                             <tr class="hover:bg-gray-50">
                                 <td class="p-4 font-medium text-navy"><?= htmlspecialchars($p['username']) ?></td>
                                 <td class="p-4 text-gray-500 hidden md:table-cell"><?= htmlspecialchars($p['email']) ?></td>
-                                <td class="p-4 text-gray-500 hidden md:table-cell"><?= date('M j, Y g:i A', strtotime($p['created_at'])) ?></td>
+                                <td class="p-4 text-gray-500 hidden md:table-cell"><?= date('M j', strtotime($p['created_at'])) ?></td>
                                 <td class="p-4">
-                                    <a href="?approve=<?= $p['id'] ?>" class="text-green-600 hover:text-green-800 text-xs font-medium mr-3">Approve</a>
-                                    <a href="?reject=<?= $p['id'] ?>" onclick="return confirm('Reject this request?')" class="text-red-500 hover:text-red-700 text-xs font-medium">Reject</a>
+                                    <form method="GET" action="approve.php" class="flex gap-2 items-center">
+                                        <input type="hidden" name="approve" value="<?= $p['id'] ?>">
+                                        <select name="agent_id" class="border border-gray-300 px-2 py-1 text-xs">
+                                            <option value="">No agent</option>
+                                            <?php foreach ($all_agents as $a): ?>
+                                            <option value="<?= $a['id'] ?>"><?= htmlspecialchars($a['name']) ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <button type="submit" class="text-green-600 hover:text-green-800 text-xs font-medium">Approve</button>
+                                    </form>
+                                </td>
+                                <td class="p-4">
+                                    <a href="?reject=<?= $p['id'] ?>" onclick="return confirm('Reject?')" class="text-red-500 hover:text-red-700 text-xs font-medium">Reject</a>
                                 </td>
                             </tr>
                             <?php endforeach; ?>
@@ -85,12 +93,13 @@ $approved_users = $db->query("SELECT * FROM users ORDER BY role ASC, username AS
                 <h2 class="text-sm font-semibold text-gray-700 mb-3 uppercase tracking-wider">Active Admins</h2>
                 <div class="bg-white border border-gray-200 overflow-x-auto">
                     <table class="w-full text-sm">
-                        <thead class="bg-gray-50 text-gray-600"><tr><th class="text-left p-4 font-medium">Username</th><th class="text-left p-4 font-medium hidden md:table-cell">Role</th><th class="text-left p-4 font-medium hidden md:table-cell">Created</th></tr></thead>
+                        <thead class="bg-gray-50 text-gray-600"><tr><th class="text-left p-4 font-medium">Username</th><th class="text-left p-4 font-medium hidden md:table-cell">Role</th><th class="text-left p-4 font-medium hidden md:table-cell">Assigned Agent</th><th class="text-left p-4 font-medium hidden md:table-cell">Created</th></tr></thead>
                         <tbody class="divide-y divide-gray-100">
                             <?php foreach ($approved_users as $u): ?>
                             <tr class="hover:bg-gray-50">
                                 <td class="p-4 font-medium text-navy"><?= htmlspecialchars($u['username']) ?> <?= $u['role'] == 'super' ? '<span class="text-amber-400 text-[10px] uppercase tracking-wider">(Owner)</span>' : '' ?></td>
                                 <td class="p-4 text-gray-500 hidden md:table-cell"><?= ucfirst($u['role']) ?></td>
+                                <td class="p-4 text-gray-500 hidden md:table-cell"><?= htmlspecialchars($u['agent_name'] ?? '—') ?></td>
                                 <td class="p-4 text-gray-500 hidden md:table-cell"><?= date('M j, Y', strtotime($u['created_at'])) ?></td>
                             </tr>
                             <?php endforeach; ?>

@@ -30,6 +30,7 @@ try {
         title TEXT NOT NULL,
         address TEXT,
         city TEXT,
+        county TEXT,
         state TEXT DEFAULT 'MS',
         zip TEXT,
         price REAL,
@@ -70,7 +71,9 @@ try {
         password_hash TEXT NOT NULL,
         approved INTEGER DEFAULT 1,
         role TEXT DEFAULT 'admin',
-        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        agent_id INTEGER,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (agent_id) REFERENCES agents(id)
     )");
     
     $db->exec("CREATE TABLE IF NOT EXISTS pending_users (
@@ -78,8 +81,14 @@ try {
         username TEXT UNIQUE NOT NULL,
         email TEXT NOT NULL,
         password_hash TEXT NOT NULL,
+        agent_id INTEGER,
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
     )");
+    
+    // Add columns if upgrading existing database
+    try { $db->exec("ALTER TABLE users ADD COLUMN agent_id INTEGER"); } catch (Exception $e) {}
+    try { $db->exec("ALTER TABLE pending_users ADD COLUMN agent_id INTEGER"); } catch (Exception $e) {}
+    try { $db->exec("ALTER TABLE listings ADD COLUMN county TEXT"); } catch (Exception $e) {}
     
     // Create default super admin if not exists
     $check = $db->prepare("SELECT COUNT(*) as c FROM users WHERE username = ? AND role = 'super'");
