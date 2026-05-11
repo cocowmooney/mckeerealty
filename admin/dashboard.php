@@ -38,6 +38,7 @@ $pend_reqs = $db->query("SELECT * FROM pending_users ORDER BY created_at DESC")-
                     Approvals <?= $pending_users > 0 ? '<span class="bg-gold text-navy text-xs font-bold px-2 py-0.5">'.$pending_users.'</span>' : '' ?>
                 </a>
                 <?php endif; ?>
+                <a href="password.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-navy-light transition text-sm text-gray-200">Password</a>
                 <a href="logout.php" class="flex items-center gap-3 px-4 py-2.5 hover:bg-red-700/20 text-red-300 mt-4 text-sm">Logout</a>
             </nav>
         </div>

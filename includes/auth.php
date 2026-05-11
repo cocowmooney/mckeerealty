@@ -1,4 +1,7 @@
 <?php
+// Load database globally first
+require_once __DIR__ . '/db.php';
+
 function is_logged_in(): bool {
     return isset($_SESSION['admin_logged_in']) && $_SESSION['admin_logged_in'] === true;
 }
@@ -23,8 +26,11 @@ function require_super_admin(): void {
 }
 
 function login(string $username, string $password): string {
-    require_once __DIR__ . '/db.php';
     global $db;
+    
+    if (!$db) {
+        return 'invalid';
+    }
     
     $stmt = $db->prepare("SELECT * FROM users WHERE username = ?");
     $stmt->execute([$username]);
@@ -56,8 +62,11 @@ function logout(): void {
 }
 
 function request_account(string $username, string $email, string $password): bool {
-    require_once __DIR__ . '/db.php';
     global $db;
+    
+    if (!$db) {
+        return false;
+    }
     
     // Check if username already taken
     $check = $db->prepare("SELECT COUNT(*) as c FROM users WHERE username = ?");
@@ -72,11 +81,6 @@ function request_account(string $username, string $email, string $password): boo
     $hash = password_hash($password, PASSWORD_DEFAULT);
     $ins = $db->prepare("INSERT INTO pending_users (username, email, password_hash) VALUES (?, ?, ?)");
     $ins->execute([$username, $email, $hash]);
-    
-    // Notify super admin
-    $subject = "New admin account request: $username";
-    $body = "A new admin account has been requested:\n\nUsername: $username\nEmail: $email\n\nApprove or reject at the admin dashboard.";
-    mail('mckeerealty@att.net', $subject, $body, "From: noreply@mckeerealtyinc.com");
     
     return true;
 }
