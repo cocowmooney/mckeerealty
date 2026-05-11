@@ -4,18 +4,12 @@
         <div class="container mx-auto px-4 py-10">
             <div class="grid md:grid-cols-3 gap-8">
                 <div>
-                    <div class="flex items-center space-x-3 mb-3">
-                        <div class="w-9 h-9 bg-gold flex items-center justify-center">
-                            <span class="text-navy font-bold text-base">M</span>
-                        </div>
-                        <div>
-                            <span class="font-semibold text-base">McKee Realty</span>
-                            <span class="block text-[10px] text-gold uppercase tracking-wider">Flowood, MS</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-400 text-sm leading-relaxed">
-                        Serving Central Mississippi with trusted real estate expertise. Your home is our priority.
-                    </p>
+                <div class="flex items-center mb-3">
+                    <img src="/assets/images/logo.png" alt="McKee Realty Inc." class="h-14 w-auto">
+                </div>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Serving Central Mississippi with trusted real estate expertise. Your home is our priority.
+                </p>
                 </div>
                 <div>
                     <h3 class="text-sm font-semibold uppercase tracking-wider text-gold mb-4">Quick Links</h3>

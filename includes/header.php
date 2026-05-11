@@ -33,14 +33,8 @@ require_once __DIR__ . '/db.php';
     <header class="bg-navy text-white shadow sticky top-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex items-center justify-between h-16 md:h-20">
-                <a href="/" class="flex items-center space-x-3">
-                    <div class="w-9 h-9 bg-gold flex items-center justify-center">
-                        <span class="text-navy font-bold text-base">M</span>
-                    </div>
-                    <div class="hidden sm:block">
-                        <span class="font-semibold text-base tracking-tight">McKee Realty</span>
-                        <span class="block text-[10px] text-gold uppercase tracking-wider -mt-0.5">Flowood, MS</span>
-                    </div>
+                <a href="/" class="flex items-center">
+                    <img src="/assets/images/logo.png" alt="McKee Realty Inc." class="h-12 md:h-14 w-auto">
                 </a>
                 <button id="menu-toggle" class="md:hidden p-2 hover:bg-navy-light transition">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
