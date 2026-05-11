@@ -1,0 +1,53 @@
+RewriteEngine On
+
+# Redirect www to non-www (optional - uncomment when domain is set)
+# RewriteCond %{HTTP_HOST} ^www\.mckeerealtyinc\.com [NC]
+# RewriteRule ^(.*)$ https://mckeerealtyinc.com/$1 [L,R=301]
+
+# Pretty URLs - route through index if needed
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^listing/(\d+)$ listing.php?id=$1 [L,QSA]
+
+# Protect sensitive directories
+<FilesMatch "\.(db|sqlite|sqlite3)$">
+    Require all denied
+</FilesMatch>
+
+# Deny access to data directory
+<Directory "data">
+    Require all denied
+</Directory>
+
+# Prevent directory listing
+Options -Indexes
+
+# Prevent PHP execution in uploads
+<Directory "uploads">
+    <FilesMatch "\.php$">
+        Require all denied
+    </FilesMatch>
+</Directory>
+
+# Security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "DENY"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json
+</IfModule>
+
+# Cache control for static assets
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
